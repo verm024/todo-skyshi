@@ -2,6 +2,7 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from "./components/HelloWorld.vue";
+import { BaseText } from "@/components/atom";
 </script>
 
 <template>
@@ -14,6 +15,7 @@ import HelloWorld from "./components/HelloWorld.vue";
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
+  <base-text _as="h1" class="fw-bold" color="#00ffff">Testss</base-text>
   <button
     class="btn btn-secondary dropdown-toggle"
     type="button"
