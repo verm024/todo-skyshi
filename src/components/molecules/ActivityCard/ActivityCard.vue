@@ -22,7 +22,7 @@ import { BaseText } from "@/components/atom";
 import { formatDate } from "@/utils/helperFunctions";
 
 export default {
-  name: "BaseButton",
+  name: "ActivityCard",
   components: {
     BaseText,
   },
