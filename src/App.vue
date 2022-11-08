@@ -14,6 +14,16 @@ import HelloWorld from "./components/HelloWorld.vue";
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
+  <button
+    class="btn btn-secondary dropdown-toggle"
+    type="button"
+    id="dropdownMenuButton1"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Check Bootstrap
+  </button>
+  <i class="bi bi-arrow-90deg-left"></i>
 </template>
 
 <style scoped>
