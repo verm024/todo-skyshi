@@ -8,7 +8,9 @@ import { BaseButton } from "@/components/atom";
   <div class="page-container container">
     <router-view />
   </div>
-  <base-button @click="window.alert('Hello World')">Hapus</base-button>
+  <base-button icon="bi bi-plus-lg" @click="window.alert('Hello World')"
+    >Hapus</base-button
+  >
 </template>
 
 <style scoped>

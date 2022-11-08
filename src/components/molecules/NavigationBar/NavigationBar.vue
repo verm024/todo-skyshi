@@ -1,7 +1,7 @@
 <template>
   <nav class="main-navbar navbar fixed-top">
     <div class="container">
-      <base-text _as="h5" :fontWeight="700" color="white"
+      <base-text _as="h5" :font-weight="700" color="white"
         >TO DO LIST APP</base-text
       >
     </div>

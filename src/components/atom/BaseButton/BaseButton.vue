@@ -1,8 +1,20 @@
 <template>
-  <button v-bind="$attrs" :class="['main-button', `button-${variant}`]">
-    <base-text :color="textColor" _as="btn" :fontWeight="600"
-      ><slot></slot
-    ></base-text>
+  <button
+    v-bind="$attrs"
+    :class="[
+      'main-button d-flex justify-content-center align-items-center align-center',
+      `button-${variant}`,
+    ]"
+  >
+    <base-text :color="textColor" _as="btn">
+      <i v-if="icon && iconPosition === 'left'" :class="[icon, 'me-2']"></i>
+    </base-text>
+    <base-text :color="textColor" _as="btn" :font-weight="600">
+      <slot></slot>
+    </base-text>
+    <base-text :color="textColor" _as="btn">
+      <i v-if="icon && iconPosition === 'right'" :class="[icon, 'ms-2']"></i>
+    </base-text>
   </button>
 </template>
 
@@ -20,6 +32,15 @@ export default {
       type: String,
       default: "primary",
       validator: (val) => ["primary", "secondary", "danger"].includes(val),
+    },
+    icon: {
+      type: String,
+      default: null,
+    },
+    iconPosition: {
+      type: String,
+      default: "left",
+      validator: (val) => ["left", "right"].includes(val),
     },
   },
   setup(props) {
@@ -40,11 +61,11 @@ export default {
 
 <style scoped>
 .main-button {
-  padding: 13px 14px;
+  padding: 0 40px;
   border-radius: 45px;
   outline: none;
   border: none;
-  width: 150px;
+  width: fit-content;
   height: 54px;
 }
 .button-primary {
