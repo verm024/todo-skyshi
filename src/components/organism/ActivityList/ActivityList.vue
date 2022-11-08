@@ -12,6 +12,18 @@
         :on-delete="onDelete(activity?.id)"
       />
     </div>
+    <div
+      v-if="activities.length === 0"
+      class="d-flex justify-content-center pt-5"
+      role="button"
+      @click="onAdd"
+    >
+      <img
+        class="w-80"
+        src="@/assets/activity-empty-state.png"
+        alt="Buat activity pertamamu"
+      />
+    </div>
   </div>
 </template>
 
@@ -33,6 +45,10 @@ export default {
       default: () => null,
     },
     onDelete: {
+      type: Function,
+      default: () => null,
+    },
+    onAdd: {
       type: Function,
       default: () => null,
     },

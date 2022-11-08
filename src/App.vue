@@ -38,7 +38,6 @@ import { ActivityList } from "@/components/organism";
           title: 'coba 4',
           email: 'test@gmail.com',
         },
-
         {
           created_at: '2022-11-08T12:34:25.240Z',
           updated_at: '2022-11-08T12:34:25.240Z',
@@ -46,7 +45,6 @@ import { ActivityList } from "@/components/organism";
           title: 'coba 4',
           email: 'test@gmail.com',
         },
-
         {
           created_at: '2022-11-08T12:34:25.240Z',
           updated_at: '2022-11-08T12:34:25.240Z',
@@ -54,7 +52,6 @@ import { ActivityList } from "@/components/organism";
           title: 'coba 4',
           email: 'test@gmail.com',
         },
-
         {
           created_at: '2022-11-08T12:34:25.240Z',
           updated_at: '2022-11-08T12:34:25.240Z',
