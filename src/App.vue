@@ -1,44 +1,16 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from "./components/HelloWorld.vue";
-import { BaseText } from "@/components/atom";
+import { NavigationBar } from "@/components/molecules";
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <navigation-bar />
+  <div class="page-container container">
+    <router-view />
   </div>
-  <HelloWorld msg="Vite + Vue" />
-  <base-text _as="h1" class="fw-bold" color="#00ffff">Testss</base-text>
-  <button
-    class="btn btn-secondary dropdown-toggle"
-    type="button"
-    id="dropdownMenuButton1"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    Check Bootstrap
-  </button>
-  <i class="bi bi-arrow-90deg-left"></i>
-  <router-view />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.page-container {
+  padding-top: 145px;
 }
 </style>
