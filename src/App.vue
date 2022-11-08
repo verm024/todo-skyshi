@@ -1,5 +1,5 @@
 <script setup>
-import { NavigationBar } from "@/components/molecules";
+import { NavigationBar, ActivityCard } from "@/components/molecules";
 import { BaseButton } from "@/components/atom";
 </script>
 
@@ -8,6 +8,7 @@ import { BaseButton } from "@/components/atom";
   <div class="page-container container">
     <router-view />
   </div>
+  <activity-card title="test title"></activity-card>
   <base-button icon="bi bi-plus-lg" @click="window.alert('Hello World')"
     >Hapus</base-button
   >
