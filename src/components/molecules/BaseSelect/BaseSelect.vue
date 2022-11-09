@@ -13,8 +13,13 @@
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <div>
-          {{ selectedOption.text }}
+        <div class="d-flex align-items-center">
+          <div v-if="selectedOption.color" class="me-3">
+            <colored-circle :size="14" :color="selectedOption.color" />
+          </div>
+          <base-text _as="b1" color="#4A4A4A">{{
+            selectedOption.text
+          }}</base-text>
         </div>
         <base-text _as="b1"><i class="bi bi-chevron-down"></i></base-text>
       </button>
@@ -62,7 +67,7 @@ export default {
     },
     selectedOption: {
       type: Object,
-      default: () => ({ text: "", value: "" }),
+      default: () => ({ text: "", value: "", color: "" }),
     },
     options: {
       type: Array,

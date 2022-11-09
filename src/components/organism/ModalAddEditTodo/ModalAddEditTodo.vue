@@ -9,10 +9,10 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <base-text class="modal-title" _as="h6" font-weight="600">{{
+          <base-text class="modal-title" _as="h6" :font-weight="600">{{
             title
           }}</base-text>
-          <button type="button" class="btn-close" @click="onClose"></button>
+          <button type="button" class="btn-close" @click="handleClose"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
@@ -24,6 +24,7 @@
           </div>
           <div>
             <base-select
+              name="add-edit-activity"
               :options="options"
               :selected-option="priority"
               label="PRIORITY"
@@ -35,8 +36,9 @@
         </div>
         <div class="modal-footer">
           <base-button
-            @click="() => onConfirm(name, priority.value)"
             variant="primary"
+            :disabled="name === ''"
+            @click="handleConfirm"
             >Simpan</base-button
           >
         </div>
@@ -127,9 +129,29 @@ export default {
     const priority = ref({
       text: "Very High",
       value: "very-high",
+      color: convertPriorityToColor("very-high"),
     });
     const handleChangePriority = (text, value) => {
-      priority.value = { text, value };
+      priority.value = { text, value, color: convertPriorityToColor(value) };
+    };
+
+    const handleConfirm = async () => {
+      await props.onConfirm(name.value, priority.value.value);
+      name.value = "";
+      priority.value = {
+        text: "Very High",
+        value: "very-high",
+        color: convertPriorityToColor("very-high"),
+      };
+    };
+    const handleClose = () => {
+      props.onClose();
+      name.value = "";
+      priority.value = {
+        text: "Very High",
+        value: "very-high",
+        color: convertPriorityToColor("very-high"),
+      };
     };
 
     return {
@@ -138,13 +160,21 @@ export default {
       priority,
       options,
       handleChangePriority,
+      handleConfirm,
+      handleClose,
     };
   },
 };
 </script>
 
 <style scoped>
-.icon-wrapper i {
-  font-size: 60px !important;
+.modal-dialog {
+  max-width: 830px;
+}
+.modal-header,
+.modal-body,
+.modal-footer {
+  padding-left: 24px;
+  padding-right: 24px;
 }
 </style>
