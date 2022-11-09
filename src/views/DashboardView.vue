@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex justify-content-between align-items-center mb-4">
     <base-text _as="h4" :font-weight="700">Activity</base-text>
-    <base-button icon="bi bi-plus-lg">Tambah</base-button>
+    <base-button icon="bi bi-plus-lg" @click="handleAdd()">Tambah</base-button>
   </div>
-  <activity-list :activities="activities" />
+  <activity-list :activities="activities" :on-add="handleAdd" />
 </template>
 
 <script>
@@ -36,8 +36,21 @@ export default {
     };
     onMounted(() => fetchActivities());
 
+    const handleAdd = async () => {
+      try {
+        await api().post("/activity-groups", {
+          title: "New Activity",
+          email: "muhnaufal251@gmail.com",
+        });
+        await fetchActivities();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     return {
       activities,
+      handleAdd,
     };
   },
 };
