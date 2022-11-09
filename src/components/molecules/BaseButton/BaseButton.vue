@@ -75,6 +75,6 @@ export default {
   background: #ed4c5c;
 }
 .button-secondary {
-  background: transparent;
+  background: #f4f4f4;
 }
 </style>

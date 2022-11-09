@@ -8,8 +8,8 @@
       <activity-card
         :title="activity?.title"
         :date="activity.created_at"
-        :on-title-click="onTitleClick(activity?.id)"
-        :on-delete="onDelete(activity?.id)"
+        :on-title-click="() => onTitleClick(activity?.id)"
+        :on-delete="() => onDelete(activity?.id, activity?.title)"
       />
     </div>
     <div
