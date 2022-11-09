@@ -13,22 +13,36 @@
         ></base-text>
       </div>
     </div>
-    <base-button icon="bi bi-plus-lg">Tambah</base-button>
+    <base-button icon="bi bi-plus-lg" @click="handleOpenModalAdd"
+      >Tambah</base-button
+    >
   </div>
   <todo-list
     :todos="todos"
-    :on-delete="(id, title) => handleOpenModal(id, title)"
+    :on-delete="(id, title) => handleOpenModalDelete(id, title)"
+    :on-add="handleOpenModalAdd"
   />
   <modal-delete-todo
     :is-open="isModalDeleteOpen"
-    :on-close="handleCloseModal"
+    :on-close="handleCloseModalDelete"
     :on-confirm="handleDelete"
     :title="modalDeleteData?.title || ''"
+  />
+  <!-- Modal Add Todo -->
+  <modal-add-edit-todo
+    :is-open="isModalAddOpen"
+    :on-close="handleCloseModalAdd"
+    :on-confirm="async (name, priority) => await handleAdd(name, priority)"
+    title="Tambah List Item"
   />
 </template>
 
 <script>
-import { TodoList, ModalDeleteTodo } from "@/components/organism";
+import {
+  TodoList,
+  ModalDeleteTodo,
+  ModalAddEditTodo,
+} from "@/components/organism";
 import { BaseText } from "@/components/atom";
 import { BaseButton } from "@/components/molecules";
 import api from "@/utils/api";
@@ -43,6 +57,7 @@ export default {
     BaseText,
     BaseButton,
     ModalDeleteTodo,
+    ModalAddEditTodo,
   },
   setup() {
     const route = useRoute();
@@ -62,11 +77,11 @@ export default {
 
     const isModalDeleteOpen = ref(false);
     const modalDeleteData = ref(null);
-    const handleOpenModal = (id, title) => {
+    const handleOpenModalDelete = (id, title) => {
       isModalDeleteOpen.value = true;
       modalDeleteData.value = { id, title };
     };
-    const handleCloseModal = () => {
+    const handleCloseModalDelete = () => {
       isModalDeleteOpen.value = false;
       modalDeleteData.value = null;
     };
@@ -77,18 +92,44 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        handleCloseModal();
+        handleCloseModalDelete();
+      }
+    };
+
+    const isModalAddOpen = ref(false);
+    const handleOpenModalAdd = () => {
+      isModalAddOpen.value = true;
+    };
+    const handleCloseModalAdd = () => {
+      isModalAddOpen.value = false;
+    };
+    const handleAdd = async (name, priority) => {
+      try {
+        await api().post("/todo-items", {
+          activity_group_id: route.params.id,
+          title: name,
+          priority,
+        });
+        await fetchTodos();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        handleCloseModalAdd();
       }
     };
 
     return {
       todos,
       activityTitle,
-      handleOpenModal,
+      handleOpenModalDelete,
       isModalDeleteOpen,
-      handleCloseModal,
+      handleCloseModalDelete,
       handleDelete,
       modalDeleteData,
+      handleOpenModalAdd,
+      isModalAddOpen,
+      handleCloseModalAdd,
+      handleAdd,
     };
   },
 };

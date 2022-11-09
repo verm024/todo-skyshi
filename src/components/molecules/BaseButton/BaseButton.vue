@@ -77,4 +77,8 @@ export default {
 .button-secondary {
   background: #f4f4f4;
 }
+
+.main-button:disabled {
+  opacity: 0.2;
+}
 </style>
