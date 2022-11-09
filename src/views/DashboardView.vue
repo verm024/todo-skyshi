@@ -7,6 +7,7 @@
     :activities="activities"
     :on-add="handleAdd"
     :on-delete="(activityId, title) => handleOpenModal(activityId, title)"
+    :on-title-click="(activityId) => handleClickActivity(activityId)"
   />
   <modal-delete-activity
     :is-open="isModalDeleteOpen"
@@ -29,6 +30,7 @@ import { ActivityList, ModalDeleteActivity } from "@/components/organism";
 import api from "@/utils/api";
 
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   name: "DashboardView",
@@ -94,6 +96,11 @@ export default {
       }
     };
 
+    const router = useRouter();
+    const handleClickActivity = (activityId) => {
+      router.push(`/detail/${activityId}`);
+    };
+
     return {
       activities,
       handleAdd,
@@ -103,6 +110,7 @@ export default {
       handleDelete,
       modalDeleteData,
       isAlertDeleteOpen,
+      handleClickActivity,
     };
   },
 };
