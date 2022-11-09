@@ -1,41 +1,76 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from "@/components/HelloWorld.vue";
+<script>
+import { BaseText } from "@/components/atom";
+import { BaseButton } from "@/components/molecules";
+import { ActivityList } from "@/components/organism";
+
+export default {
+  name: "DashboardView",
+  components: {
+    BaseText,
+    BaseButton,
+    ActivityList,
+  },
+};
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <base-text _as="h4" :font-weight="700">Activity</base-text>
+    <base-button icon="bi bi-plus-lg">Tambah</base-button>
   </div>
-  <HelloWorld msg="Vite + Vue" />
-  <button
-    id="dropdownMenuButton1"
-    class="btn btn-secondary dropdown-toggle"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    Check Bootstrap HOMEEE
-  </button>
-  <i class="bi bi-arrow-90deg-left"></i>
+  <activity-list
+    :activities="[
+      {
+        created_at: '2022-11-08T12:34:25.240Z',
+        updated_at: '2022-11-08T12:34:25.240Z',
+        id: 13617,
+        title: 'coba 1',
+        email: 'test@gmail.com',
+      },
+      {
+        created_at: '2022-11-08T12:34:25.240Z',
+        updated_at: '2022-11-08T12:34:25.240Z',
+        id: 13618,
+        title: 'coba 2',
+        email: 'test@gmail.com',
+      },
+      {
+        created_at: '2022-11-08T12:34:25.240Z',
+        updated_at: '2022-11-08T12:34:25.240Z',
+        id: 13619,
+        title: 'coba 3',
+        email: 'test@gmail.com',
+      },
+      {
+        created_at: '2022-11-08T12:34:25.240Z',
+        updated_at: '2022-11-08T12:34:25.240Z',
+        id: 13620,
+        title: 'coba 4',
+        email: 'test@gmail.com',
+      },
+      {
+        created_at: '2022-11-08T12:34:25.240Z',
+        updated_at: '2022-11-08T12:34:25.240Z',
+        id: 13621,
+        title: 'coba 4',
+        email: 'test@gmail.com',
+      },
+      {
+        created_at: '2022-11-08T12:34:25.240Z',
+        updated_at: '2022-11-08T12:34:25.240Z',
+        id: 13622,
+        title: 'coba 4',
+        email: 'test@gmail.com',
+      },
+      {
+        created_at: '2022-11-08T12:34:25.240Z',
+        updated_at: '2022-11-08T12:34:25.240Z',
+        id: 13623,
+        title: 'coba 4',
+        email: 'test@gmail.com',
+      },
+    ]"
+  />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style scoped></style>

@@ -12,5 +12,6 @@ import { NavigationBar } from "@/components/molecules";
 <style scoped>
 .page-container {
   padding-top: 145px;
+  padding-bottom: 100px;
 }
 </style>
