@@ -7,7 +7,7 @@
         :checked="!todo?.is_active"
         :on-delete="() => onDelete(todo?.id, todo?.title)"
         :on-edit="() => onEdit(todo)"
-        :on-check-click="() => onCheckClick(todo?.id)"
+        :on-check-click="() => onCheckClick(todo?.id, todo?.is_active)"
       />
     </div>
     <div

@@ -22,6 +22,7 @@
     :on-delete="(id, title) => handleOpenModalDelete(id, title)"
     :on-add="handleOpenModalAdd"
     :on-edit="(todo) => handleOpenModalEdit(todo)"
+    :on-check-click="(id, is_active) => handleChangeCheckbox(id, is_active)"
   />
   <modal-delete-todo
     :is-open="isModalDeleteOpen"
@@ -153,6 +154,17 @@ export default {
       }
     };
 
+    const handleChangeCheckbox = async (id, is_active) => {
+      try {
+        await api().patch(`/todo-items/${id}`, {
+          is_active: !is_active,
+        });
+        await fetchTodos();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     return {
       todos,
       activityTitle,
@@ -170,6 +182,7 @@ export default {
       handleCloseModalEdit,
       handleEdit,
       modalEditData,
+      handleChangeCheckbox,
     };
   },
 };
