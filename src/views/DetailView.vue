@@ -15,11 +15,20 @@
     </div>
     <base-button icon="bi bi-plus-lg">Tambah</base-button>
   </div>
-  <todo-list :todos="todos" />
+  <todo-list
+    :todos="todos"
+    :on-delete="(id, title) => handleOpenModal(id, title)"
+  />
+  <modal-delete-todo
+    :is-open="isModalDeleteOpen"
+    :on-close="handleCloseModal"
+    :on-confirm="handleDelete"
+    :title="modalDeleteData?.title || ''"
+  />
 </template>
 
 <script>
-import { TodoList } from "@/components/organism";
+import { TodoList, ModalDeleteTodo } from "@/components/organism";
 import { BaseText } from "@/components/atom";
 import { BaseButton } from "@/components/molecules";
 import api from "@/utils/api";
@@ -33,6 +42,7 @@ export default {
     TodoList,
     BaseText,
     BaseButton,
+    ModalDeleteTodo,
   },
   setup() {
     const route = useRoute();
@@ -50,9 +60,35 @@ export default {
     };
     onMounted(() => fetchTodos());
 
+    const isModalDeleteOpen = ref(false);
+    const modalDeleteData = ref(null);
+    const handleOpenModal = (id, title) => {
+      isModalDeleteOpen.value = true;
+      modalDeleteData.value = { id, title };
+    };
+    const handleCloseModal = () => {
+      isModalDeleteOpen.value = false;
+      modalDeleteData.value = null;
+    };
+    const handleDelete = async () => {
+      try {
+        await api().delete(`/todo-items/${modalDeleteData.value.id}`);
+        await fetchTodos();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        handleCloseModal();
+      }
+    };
+
     return {
       todos,
       activityTitle,
+      handleOpenModal,
+      isModalDeleteOpen,
+      handleCloseModal,
+      handleDelete,
+      modalDeleteData,
     };
   },
 };
