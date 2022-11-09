@@ -4,3 +4,4 @@ export { default as BaseButton } from "./BaseButton";
 export { default as BaseAlert } from "./BaseAlert";
 export { default as TodoItem } from "./TodoItem";
 export { default as LabeledInput } from "./LabeledInput";
+export { default as BaseSelect } from "./BaseSelect";
