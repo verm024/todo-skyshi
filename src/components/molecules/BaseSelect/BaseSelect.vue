@@ -33,7 +33,7 @@
               </div>
               <base-text _as="b1" color="#4A4A4A">{{ option.text }}</base-text>
             </div>
-            <div v-if="option.value === selectedOption">
+            <div v-if="option.value === selectedOption.value">
               <base-text _as="h6" color="#4A4A4A"
                 ><i class="bi bi-check2"></i
               ></base-text>
