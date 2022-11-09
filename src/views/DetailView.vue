@@ -20,6 +20,7 @@
   <todo-list
     :todos="todos"
     :on-delete="(id, title) => handleOpenModalDelete(id, title)"
+    :on-add="handleOpenModalAdd"
   />
   <modal-delete-todo
     :is-open="isModalDeleteOpen"
