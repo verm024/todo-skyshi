@@ -11,7 +11,7 @@
         class="ms-3 me-3"
         _as="h6"
         :font-weight="500"
-        style="{textDecoration: checked ? 'line-through' : 'none'}"
+        :style="{ textDecoration: checked ? 'line-through' : 'none' }"
         >{{ title }}</base-text
       >
       <div role="button" @click="onEdit">
