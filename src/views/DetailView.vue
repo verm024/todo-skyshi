@@ -21,6 +21,8 @@
     :todos="todos"
     :on-delete="(id, title) => handleOpenModalDelete(id, title)"
     :on-add="handleOpenModalAdd"
+    :on-edit="(todo) => handleOpenModalEdit(todo)"
+    :on-check-click="(id, is_active) => handleChangeCheckbox(id, is_active)"
   />
   <modal-delete-todo
     :is-open="isModalDeleteOpen"
@@ -28,12 +30,22 @@
     :on-confirm="handleDelete"
     :title="modalDeleteData?.title || ''"
   />
+
   <!-- Modal Add Todo -->
   <modal-add-edit-todo
     :is-open="isModalAddOpen"
     :on-close="handleCloseModalAdd"
     :on-confirm="async (name, priority) => await handleAdd(name, priority)"
     title="Tambah List Item"
+  />
+
+  <!-- Modal Edit Todo -->
+  <modal-add-edit-todo
+    :is-open="isModalEditOpen"
+    :on-close="handleCloseModalEdit"
+    :on-confirm="async (name, priority) => await handleEdit(name, priority)"
+    title="Edit Item"
+    :data="modalEditData"
   />
 </template>
 
@@ -118,6 +130,41 @@ export default {
       }
     };
 
+    const isModalEditOpen = ref(false);
+    const modalEditData = ref(null);
+    const handleOpenModalEdit = (todo) => {
+      isModalEditOpen.value = true;
+      modalEditData.value = { ...todo };
+    };
+    const handleCloseModalEdit = () => {
+      isModalEditOpen.value = false;
+      modalEditData.value = null;
+    };
+    const handleEdit = async (name, priority) => {
+      try {
+        await api().patch(`/todo-items/${modalEditData.value.id}`, {
+          title: name,
+          priority,
+        });
+        await fetchTodos();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        handleCloseModalEdit();
+      }
+    };
+
+    const handleChangeCheckbox = async (id, is_active) => {
+      try {
+        await api().patch(`/todo-items/${id}`, {
+          is_active: !is_active,
+        });
+        await fetchTodos();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     return {
       todos,
       activityTitle,
@@ -130,6 +177,12 @@ export default {
       isModalAddOpen,
       handleCloseModalAdd,
       handleAdd,
+      handleOpenModalEdit,
+      isModalEditOpen,
+      handleCloseModalEdit,
+      handleEdit,
+      modalEditData,
+      handleChangeCheckbox,
     };
   },
 };

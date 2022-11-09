@@ -42,3 +42,27 @@ export const convertPriorityToColor = (priority) => {
   }
   return priorityColor;
 };
+
+export const convertPriorityToText = (priority) => {
+  let priorityText;
+  switch (priority) {
+    case "very-high":
+      priorityText = "Very High";
+      break;
+    case "high":
+      priorityText = "High";
+      break;
+    case "normal":
+      priorityText = "Normal";
+      break;
+    case "low":
+      priorityText = "Low";
+      break;
+    case "very-low":
+      priorityText = "Very Low";
+      break;
+    default:
+      break;
+  }
+  return priorityText;
+};

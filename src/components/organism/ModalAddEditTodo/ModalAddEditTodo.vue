@@ -50,7 +50,10 @@
 <script>
 import { BaseText } from "@/components/atom";
 import { BaseButton, BaseSelect, LabeledInput } from "@/components/molecules";
-import { convertPriorityToColor } from "@/utils/helperFunctions";
+import {
+  convertPriorityToColor,
+  convertPriorityToText,
+} from "@/utils/helperFunctions";
 
 import { ref, watch, onMounted } from "vue";
 import { Modal } from "bootstrap";
@@ -80,6 +83,10 @@ export default {
       type: String,
       default: "",
     },
+    data: {
+      type: Object,
+      default: () => null,
+    },
   },
   setup(props) {
     const modalAddEditTodo = ref(null);
@@ -101,33 +108,33 @@ export default {
     const name = ref("");
     const options = [
       {
-        text: "Very High",
+        text: convertPriorityToText("very-high"),
         value: "very-high",
         color: convertPriorityToColor("very-high"),
       },
       {
-        text: "High",
+        text: convertPriorityToText("high"),
         value: "high",
         color: convertPriorityToColor("high"),
       },
       {
-        text: "Normal",
+        text: convertPriorityToText("normal"),
         value: "normal",
         color: convertPriorityToColor("normal"),
       },
       {
-        text: "Low",
+        text: convertPriorityToText("low"),
         value: "low",
         color: convertPriorityToColor("low"),
       },
       {
-        text: "Very Low",
+        text: convertPriorityToText("very-low"),
         value: "very-low",
         color: convertPriorityToColor("very-low"),
       },
     ];
     const priority = ref({
-      text: "Very High",
+      text: convertPriorityToText("very-high"),
       value: "very-high",
       color: convertPriorityToColor("very-high"),
     });
@@ -139,7 +146,7 @@ export default {
       await props.onConfirm(name.value, priority.value.value);
       name.value = "";
       priority.value = {
-        text: "Very High",
+        text: convertPriorityToText("very-high"),
         value: "very-high",
         color: convertPriorityToColor("very-high"),
       };
@@ -148,11 +155,23 @@ export default {
       props.onClose();
       name.value = "";
       priority.value = {
-        text: "Very High",
+        text: convertPriorityToText("very-high"),
         value: "very-high",
         color: convertPriorityToColor("very-high"),
       };
     };
+
+    watch(
+      () => props.data,
+      (newVal) => {
+        name.value = newVal?.title || "";
+        priority.value = {
+          text: convertPriorityToText(newVal?.priority || "very-high"),
+          value: newVal?.priority || "very-high",
+          color: convertPriorityToColor(newVal?.priority || "very-high"),
+        };
+      }
+    );
 
     return {
       modalAddEditTodo,
