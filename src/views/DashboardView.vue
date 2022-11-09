@@ -3,13 +3,29 @@
     <base-text _as="h4" :font-weight="700">Activity</base-text>
     <base-button icon="bi bi-plus-lg" @click="handleAdd()">Tambah</base-button>
   </div>
-  <activity-list :activities="activities" :on-add="handleAdd" />
+  <activity-list
+    :activities="activities"
+    :on-add="handleAdd"
+    :on-delete="(activityId, title) => handleOpenModal(activityId, title)"
+  />
+  <modal-delete-activity
+    :is-open="isModalDeleteOpen"
+    :on-close="handleCloseModal"
+    :on-confirm="handleDelete"
+    :title="modalDeleteData?.title || ''"
+  />
+  <base-alert
+    text="Activity berhasil dihapus"
+    icon="bi bi-exclamation-circle"
+    icon-color="#00A790"
+    :is-open="isAlertDeleteOpen"
+  />
 </template>
 
 <script>
 import { BaseText } from "@/components/atom";
-import { BaseButton } from "@/components/molecules";
-import { ActivityList } from "@/components/organism";
+import { BaseButton, BaseAlert } from "@/components/molecules";
+import { ActivityList, ModalDeleteActivity } from "@/components/organism";
 import api from "@/utils/api";
 
 import { ref, onMounted } from "vue";
@@ -20,13 +36,15 @@ export default {
     BaseText,
     BaseButton,
     ActivityList,
+    ModalDeleteActivity,
+    BaseAlert,
   },
   setup() {
     const activities = ref([]);
     const fetchActivities = async () => {
       try {
         const res = await api().get(
-          "/activity-groups?email=muhnaufal251%40gmail.com"
+          "/activity-groups?email=jamievardy%40gmail.com"
         );
         const { data } = res.data;
         activities.value = data;
@@ -40,7 +58,7 @@ export default {
       try {
         await api().post("/activity-groups", {
           title: "New Activity",
-          email: "muhnaufal251@gmail.com",
+          email: "jamievardy@gmail.com",
         });
         await fetchActivities();
       } catch (error) {
@@ -48,9 +66,43 @@ export default {
       }
     };
 
+    const isModalDeleteOpen = ref(false);
+    const modalDeleteData = ref(null);
+    const isAlertDeleteOpen = ref(false);
+    const handleOpenModal = (activityId, title) => {
+      isModalDeleteOpen.value = true;
+      modalDeleteData.value = { activityId, title };
+    };
+    const handleCloseModal = () => {
+      isModalDeleteOpen.value = false;
+      modalDeleteData.value = null;
+    };
+    const handleDelete = async () => {
+      try {
+        await api().delete(
+          `/activity-groups/${modalDeleteData.value.activityId}`
+        );
+        await fetchActivities();
+        isAlertDeleteOpen.value = true;
+        setTimeout(() => {
+          isAlertDeleteOpen.value = false;
+        }, 2000);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        handleCloseModal();
+      }
+    };
+
     return {
       activities,
       handleAdd,
+      handleOpenModal,
+      isModalDeleteOpen,
+      handleCloseModal,
+      handleDelete,
+      modalDeleteData,
+      isAlertDeleteOpen,
     };
   },
 };

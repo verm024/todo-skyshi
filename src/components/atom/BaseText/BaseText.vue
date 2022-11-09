@@ -30,7 +30,7 @@ export default {
     },
     color: {
       type: String,
-      default: "black",
+      default: "#111111",
     },
   },
 };
