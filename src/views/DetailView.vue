@@ -49,7 +49,7 @@
           :handle-change-select="
             (text, value) => handleChangeSelectedFilterOrSort(text, value)
           "
-          menu-cy="sort-selection"
+          menu-cy="sort-parent"
         />
       </div>
       <base-button
@@ -252,7 +252,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-sort-down",
         },
-        dataCy: "sort-latest",
+        dataCy: "sort-selection",
       },
       {
         text: "Terlama",
@@ -261,7 +261,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-sort-up-alt",
         },
-        dataCy: "sort-oldest",
+        dataCy: "sort-selection",
       },
       {
         text: "A-Z",
@@ -270,7 +270,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-sort-alpha-down",
         },
-        dataCy: "sort-az",
+        dataCy: "sort-selection",
       },
       {
         text: "Z-A",
@@ -279,7 +279,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-sort-alpha-down-alt",
         },
-        dataCy: "sort-za",
+        dataCy: "sort-selection",
       },
       {
         text: "Belum Selesai",
@@ -288,7 +288,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-arrow-down-up",
         },
-        dataCy: "sort-unfinished",
+        dataCy: "sort-selection",
       },
     ];
     const filteredOrSortedTodos = ref([]);
