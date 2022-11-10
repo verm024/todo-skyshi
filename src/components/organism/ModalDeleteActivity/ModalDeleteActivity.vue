@@ -115,6 +115,7 @@ export default {
 
 .button-wrapper {
   display: flex;
-  justify-content: ;
+  justify-content: center;
+  width: 100%;
 }
 </style>
