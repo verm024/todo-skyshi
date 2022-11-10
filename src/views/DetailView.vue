@@ -18,12 +18,27 @@
         ></base-text>
       </div>
     </div>
-    <base-button icon="bi bi-plus-lg" @click="handleOpenModalAdd"
-      >Tambah</base-button
-    >
+    <div class="d-flex align-items-center">
+      <div class="me-3">
+        <base-select
+          name="filter-and-sort-activity"
+          :options="filterAndSortOptions"
+          :selected-option="selectedFilterOrSort"
+          selector-type="icon"
+          as-dropdown
+          selector-content="bi bi-arrow-down-up"
+          :handle-change-select="
+            (text, value) => handleChangeSelectedFilterOrSort(text, value)
+          "
+        />
+      </div>
+      <base-button icon="bi bi-plus-lg" @click="handleOpenModalAdd"
+        >Tambah</base-button
+      >
+    </div>
   </div>
   <todo-list
-    :todos="todos"
+    :todos="filteredOrSortedTodos"
     :on-delete="(id, title) => handleOpenModalDelete(id, title)"
     :on-add="handleOpenModalAdd"
     :on-edit="(todo) => handleOpenModalEdit(todo)"
@@ -61,7 +76,7 @@ import {
   ModalAddEditTodo,
 } from "@/components/organism";
 import { BaseText } from "@/components/atom";
-import { BaseButton } from "@/components/molecules";
+import { BaseButton, BaseSelect } from "@/components/molecules";
 import api from "@/utils/api";
 
 import { ref, onMounted } from "vue";
@@ -75,6 +90,7 @@ export default {
     BaseButton,
     ModalDeleteTodo,
     ModalAddEditTodo,
+    BaseSelect,
   },
   setup() {
     const route = useRoute();
@@ -88,6 +104,8 @@ export default {
         activityTitle.value = data?.title;
       } catch (error) {
         console.error(error);
+      } finally {
+        filterOrSortTodos();
       }
     };
     onMounted(() => fetchTodos());
@@ -187,6 +205,105 @@ export default {
       }
     };
 
+    const filterAndSortOptions = [
+      {
+        text: "Terbaru",
+        value: "terbaru",
+        icon: {
+          color: "#16ABF8",
+          icon: "bi bi-sort-down",
+        },
+      },
+      {
+        text: "Terlama",
+        value: "terlama",
+        icon: {
+          color: "#16ABF8",
+          icon: "bi bi-sort-up-alt",
+        },
+      },
+      {
+        text: "A-Z",
+        value: "az",
+        icon: {
+          color: "#16ABF8",
+          icon: "bi bi-sort-alpha-down",
+        },
+      },
+      {
+        text: "Z-A",
+        value: "za",
+        icon: {
+          color: "#16ABF8",
+          icon: "bi bi-sort-alpha-down-alt",
+        },
+      },
+      {
+        text: "Belum Selesai",
+        value: "belum-selesai",
+        icon: {
+          color: "#16ABF8",
+          icon: "bi bi-arrow-down-up",
+        },
+      },
+    ];
+    const filteredOrSortedTodos = ref([]);
+    const selectedFilterOrSort = ref({
+      text: "Terbaru",
+      value: "terbaru",
+    });
+    const handleChangeSelectedFilterOrSort = (text, value) => {
+      selectedFilterOrSort.value = { text, value };
+      filterOrSortTodos();
+    };
+    const filterOrSortTodos = () => {
+      const spreadNewVal = [...todos.value];
+      switch (selectedFilterOrSort.value.value) {
+        case "terbaru":
+          spreadNewVal.sort((a, b) => b.id - a.id);
+          filteredOrSortedTodos.value = spreadNewVal;
+          break;
+        case "terlama":
+          spreadNewVal.sort((a, b) => a.id - b.id);
+          filteredOrSortedTodos.value = spreadNewVal;
+          break;
+        case "az":
+          spreadNewVal.sort((a, b) => {
+            let loweredA = a.title.toLowerCase();
+            let loweredB = b.title.toLowerCase();
+            if (loweredA < loweredB) {
+              return -1;
+            }
+            if (loweredA > loweredB) {
+              return 1;
+            }
+            return 0;
+          });
+          filteredOrSortedTodos.value = spreadNewVal;
+          break;
+        case "za":
+          spreadNewVal.sort((a, b) => {
+            let loweredA = a.title.toLowerCase();
+            let loweredB = b.title.toLowerCase();
+            if (loweredA < loweredB) {
+              return -1;
+            }
+            if (loweredA > loweredB) {
+              return 1;
+            }
+            return 0;
+          });
+          spreadNewVal.reverse();
+          filteredOrSortedTodos.value = spreadNewVal;
+          break;
+        case "belum-selesai":
+          filteredOrSortedTodos.value = spreadNewVal.filter(
+            (el) => el.is_active
+          );
+          break;
+      }
+    };
+
     return {
       todos,
       activityTitle,
@@ -207,6 +324,10 @@ export default {
       handleChangeCheckbox,
       isEditingActivityName,
       handleClickEditActivityName,
+      filterAndSortOptions,
+      filteredOrSortedTodos,
+      selectedFilterOrSort,
+      handleChangeSelectedFilterOrSort,
     };
   },
 };
