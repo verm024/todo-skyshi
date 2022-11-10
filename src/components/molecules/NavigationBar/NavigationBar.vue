@@ -1,5 +1,5 @@
 <template>
-  <nav class="main-navbar navbar fixed-top" data-cy="header-background">
+  <nav class="main-navbar navbar" data-cy="header-background">
     <div class="container">
       <base-text
         _as="h5"
