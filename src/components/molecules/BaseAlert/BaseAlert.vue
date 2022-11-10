@@ -1,11 +1,5 @@
 <template>
-  <div
-    ref="alert"
-    class="modal fade"
-    tabindex="-1"
-    data-bs-backdrop="static"
-    data-cy="modal-information"
-  >
+  <div ref="alert" class="modal" tabindex="-1" data-cy="modal-information">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body d-flex align-items-center">
