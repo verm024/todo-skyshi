@@ -34,7 +34,7 @@
     <div class="d-flex align-items-center">
       <div class="me-3">
         <base-select
-          name="filter-and-sort-activity"
+          name="todo-sort"
           :options="filterAndSortOptions"
           :selected-option="selectedFilterOrSort"
           selector-type="icon"
@@ -43,8 +43,7 @@
           :handle-change-select="
             (text, value) => handleChangeSelectedFilterOrSort(text, value)
           "
-          menu-cy="sort-parent"
-          data-cy="todo-sort"
+          menu-cy="sort-selection"
         />
       </div>
       <base-button
