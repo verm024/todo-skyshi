@@ -11,10 +11,16 @@
         _as="h4"
         :font-weight="700"
         data-cy="todo-title"
+        @click="handleClickEditActivityName"
+        :class="!isEditingActivityName ? 'd-block' : 'd-none'"
         >{{ activityTitle }}</base-text
       >
-      <div v-else class="activity-title-custom-input">
+      <div id="editActivityName">
         <input
+          :class="[
+            isEditingActivityName ? 'd-block' : 'd-none',
+            'activity-title-custom-input',
+          ]"
           v-model="activityTitle"
           data-cy="todo-title"
           @blur="handleClickEditActivityName"
@@ -219,6 +225,7 @@ export default {
         }
       } else {
         isEditingActivityName.value = true;
+        document.getElementById("editActivityName").children[0].focus();
       }
     };
 
@@ -356,7 +363,7 @@ export default {
 </script>
 
 <style scoped>
-.activity-title-custom-input input {
+.activity-title-custom-input {
   /* H4 font size */
   font-size: 2.25rem !important;
   line-height: 3.375rem !important;
@@ -364,7 +371,7 @@ export default {
   border: none;
   border-bottom: 1px solid #d8d8d8;
 }
-.activity-title-custom-input input:focus {
+.activity-title-custom-input:focus {
   outline: none;
 }
 </style>

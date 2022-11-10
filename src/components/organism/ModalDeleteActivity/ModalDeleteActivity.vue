@@ -20,7 +20,7 @@
             >
             <base-text _as="h6" :font-weight="700">"{{ title }}"?</base-text>
           </div>
-          <div class="d-flex justify-content-center">
+          <div class="button-wrapper">
             <div class="me-3">
               <base-button
                 variant="secondary"
@@ -111,5 +111,10 @@ export default {
 <style scoped>
 .icon-wrapper i {
   font-size: 60px !important;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: ;
 }
 </style>
