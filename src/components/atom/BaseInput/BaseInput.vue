@@ -6,6 +6,7 @@
       type="text"
       :placeholder="inputPlaceholder"
       :value="modelValue"
+      :data-cy="inputCy"
       @input="$emit('update:modelValue', $event.target.value)"
     />
   </div>
@@ -22,6 +23,10 @@ export default {
     inputPlaceholder: {
       type: String,
       default: "",
+    },
+    inputCy: {
+      type: String,
+      default: null,
     },
   },
 };

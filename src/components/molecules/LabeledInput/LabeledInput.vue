@@ -7,7 +7,7 @@
     </label>
     <base-input
       v-model="localModelValue"
-      :data-cy="inputCy"
+      :input-cy="inputCy"
       :input-placeholder="inputPlaceholder"
     />
   </div>

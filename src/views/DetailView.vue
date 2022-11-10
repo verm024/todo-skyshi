@@ -8,20 +8,20 @@
       </div>
       <base-text
         v-if="!isEditingActivityName"
+        :class="!isEditingActivityName ? 'd-block' : 'd-none'"
         _as="h4"
         :font-weight="700"
         data-cy="todo-title"
         @click="handleClickEditActivityName"
-        :class="!isEditingActivityName ? 'd-block' : 'd-none'"
         >{{ activityTitle }}</base-text
       >
       <div id="editActivityName">
         <input
+          v-model="activityTitle"
           :class="[
             isEditingActivityName ? 'd-block' : 'd-none',
             'activity-title-custom-input',
           ]"
-          v-model="activityTitle"
           data-cy="todo-title"
           @blur="handleClickEditActivityName"
         />
@@ -80,6 +80,7 @@
     :on-close="handleCloseModalAdd"
     :on-confirm="async (name, priority) => await handleAdd(name, priority)"
     title="Tambah List Item"
+    mode="add"
   />
 
   <!-- Modal Edit Todo -->
@@ -89,6 +90,14 @@
     :on-confirm="async (name, priority) => await handleEdit(name, priority)"
     title="Edit Item"
     :data="modalEditData"
+    mode="edit"
+  />
+
+  <base-alert
+    text="Item berhasil dihapus"
+    icon="bi bi-exclamation-circle"
+    icon-color="#00A790"
+    :is-open="isAlertDeleteOpen"
   />
 </template>
 
@@ -99,7 +108,7 @@ import {
   ModalAddEditTodo,
 } from "@/components/organism";
 import { BaseText } from "@/components/atom";
-import { BaseButton, BaseSelect } from "@/components/molecules";
+import { BaseButton, BaseSelect, BaseAlert } from "@/components/molecules";
 import api from "@/utils/api";
 
 import { ref, onMounted } from "vue";
@@ -114,6 +123,7 @@ export default {
     ModalDeleteTodo,
     ModalAddEditTodo,
     BaseSelect,
+    BaseAlert,
   },
   setup() {
     const route = useRoute();
@@ -135,6 +145,7 @@ export default {
 
     const isModalDeleteOpen = ref(false);
     const modalDeleteData = ref(null);
+    const isAlertDeleteOpen = ref(false);
     const handleOpenModalDelete = (id, title) => {
       isModalDeleteOpen.value = true;
       modalDeleteData.value = { id, title };
@@ -147,6 +158,10 @@ export default {
       try {
         await api().delete(`/todo-items/${modalDeleteData.value.id}`);
         await fetchTodos();
+        isAlertDeleteOpen.value = true;
+        setTimeout(() => {
+          isAlertDeleteOpen.value = false;
+        }, 2000);
       } catch (error) {
         console.error(error);
       } finally {
@@ -357,6 +372,7 @@ export default {
       filteredOrSortedTodos,
       selectedFilterOrSort,
       handleChangeSelectedFilterOrSort,
+      isAlertDeleteOpen,
     };
   },
 };

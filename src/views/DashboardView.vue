@@ -23,7 +23,7 @@
     :title="modalDeleteData?.title || ''"
   />
   <base-alert
-    text="Activity berhasil dihapus"
+    text="Item berhasil dihapus"
     icon="bi bi-exclamation-circle"
     icon-color="#00A790"
     :is-open="isAlertDeleteOpen"
