@@ -2,7 +2,7 @@
   <div
     id="modal-delete-activity"
     ref="modalDeleteActivity"
-    class="modal fade"
+    class="modal"
     tabindex="-1"
     data-cy="modal-delete"
   >

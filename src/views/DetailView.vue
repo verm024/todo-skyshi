@@ -41,15 +41,16 @@
       <div class="me-3">
         <base-select
           name="todo-sort"
-          :options="filterAndSortOptions"
-          :selected-option="selectedFilterOrSort"
+          :options="sortOptions"
+          :selected-option="selectedSort"
           selector-type="icon"
           as-dropdown
           selector-content="bi bi-arrow-down-up"
           :handle-change-select="
-            (text, value) => handleChangeSelectedFilterOrSort(text, value)
+            (text, value) => handleChangeSelectedSort(text, value)
           "
           menu-cy="sort-parent"
+          selector-cy="todo-sort-button"
         />
       </div>
       <base-button
@@ -61,7 +62,7 @@
     </div>
   </div>
   <todo-list
-    :todos="filteredOrSortedTodos"
+    :todos="sortedTodos"
     :on-delete="(id, title) => handleOpenModalDelete(id, title)"
     :on-add="handleOpenModalAdd"
     :on-edit="(todo) => handleOpenModalEdit(todo)"
@@ -138,7 +139,7 @@ export default {
       } catch (error) {
         console.error(error);
       } finally {
-        filterOrSortTodos();
+        sortTodos();
       }
     };
     onMounted(() => fetchTodos());
@@ -244,7 +245,7 @@ export default {
       }
     };
 
-    const filterAndSortOptions = [
+    const sortOptions = [
       {
         text: "Terbaru",
         value: "terbaru",
@@ -291,25 +292,25 @@ export default {
         dataCy: "sort-selection",
       },
     ];
-    const filteredOrSortedTodos = ref([]);
-    const selectedFilterOrSort = ref({
+    const sortedTodos = ref([]);
+    const selectedSort = ref({
       text: "Terbaru",
       value: "terbaru",
     });
-    const handleChangeSelectedFilterOrSort = (text, value) => {
-      selectedFilterOrSort.value = { text, value };
-      filterOrSortTodos();
+    const handleChangeSelectedSort = (text, value) => {
+      selectedSort.value = { text, value };
+      sortTodos();
     };
-    const filterOrSortTodos = () => {
+    const sortTodos = () => {
       const spreadNewVal = [...todos.value];
-      switch (selectedFilterOrSort.value.value) {
+      switch (selectedSort.value.value) {
         case "terbaru":
           spreadNewVal.sort((a, b) => b.id - a.id);
-          filteredOrSortedTodos.value = spreadNewVal;
+          sortedTodos.value = spreadNewVal;
           break;
         case "terlama":
           spreadNewVal.sort((a, b) => a.id - b.id);
-          filteredOrSortedTodos.value = spreadNewVal;
+          sortedTodos.value = spreadNewVal;
           break;
         case "az":
           spreadNewVal.sort((a, b) => {
@@ -323,7 +324,7 @@ export default {
             }
             return 0;
           });
-          filteredOrSortedTodos.value = spreadNewVal;
+          sortedTodos.value = spreadNewVal;
           break;
         case "za":
           spreadNewVal.sort((a, b) => {
@@ -338,12 +339,11 @@ export default {
             return 0;
           });
           spreadNewVal.reverse();
-          filteredOrSortedTodos.value = spreadNewVal;
+          sortedTodos.value = spreadNewVal;
           break;
         case "belum-selesai":
-          filteredOrSortedTodos.value = spreadNewVal.filter(
-            (el) => el.is_active
-          );
+          spreadNewVal.sort((a, b) => b.is_active - a.is_active);
+          sortedTodos.value = spreadNewVal;
           break;
       }
     };
@@ -368,10 +368,10 @@ export default {
       handleChangeCheckbox,
       isEditingActivityName,
       handleClickEditActivityName,
-      filterAndSortOptions,
-      filteredOrSortedTodos,
-      selectedFilterOrSort,
-      handleChangeSelectedFilterOrSort,
+      sortOptions,
+      sortedTodos,
+      selectedSort,
+      handleChangeSelectedSort,
       isAlertDeleteOpen,
     };
   },
