@@ -39,8 +39,7 @@
               :options="options"
               :selected-option="priority"
               label="PRIORITY"
-              :parent-cy="`modal-${mode}-priority-dropdown`"
-              :selected-cy="`modal-${mode}-priority-item`"
+              :selector-cy="`modal-${mode}-priority-dropdown`"
               :label-cy="`modal-${mode}-priority-title`"
               :handle-change-select="
                 (text, value) => handleChangePriority(text, value)

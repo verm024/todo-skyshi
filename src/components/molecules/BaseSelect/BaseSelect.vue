@@ -12,7 +12,7 @@
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
-        :data-cy="`${name}-button`"
+        :data-cy="selectorCy"
       >
         <div
           v-if="!asDropdown"
@@ -139,6 +139,10 @@ export default {
       default: null,
     },
     selectedCy: {
+      type: String,
+      default: null,
+    },
+    selectorCy: {
       type: String,
       default: null,
     },
