@@ -135,31 +135,31 @@ export default {
         text: convertPriorityToText("very-high"),
         value: "very-high",
         color: convertPriorityToColor("very-high"),
-        dataCy: `modal-${props.mode}-priority-very-high`,
+        dataCy: "modal-add-priority-item",
       },
       {
         text: convertPriorityToText("high"),
         value: "high",
         color: convertPriorityToColor("high"),
-        dataCy: `modal-${props.mode}-priority-high`,
+        dataCy: "modal-add-priority-item",
       },
       {
         text: convertPriorityToText("normal"),
         value: "normal",
         color: convertPriorityToColor("normal"),
-        dataCy: `modal-${props.mode}-priority-medium`,
+        dataCy: "modal-add-priority-item",
       },
       {
         text: convertPriorityToText("low"),
         value: "low",
         color: convertPriorityToColor("low"),
-        dataCy: `modal-${props.mode}-priority-low`,
+        dataCy: "modal-add-priority-item",
       },
       {
         text: convertPriorityToText("very-low"),
         value: "very-low",
         color: convertPriorityToColor("very-low"),
-        dataCy: `modal-${props.mode}-priority-very-low`,
+        dataCy: "modal-add-priority-item",
       },
     ];
     const priority = ref({
