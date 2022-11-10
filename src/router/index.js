@@ -30,11 +30,7 @@ const routes = [
     path: "/:pathMatch(.*)*",
     name: "Unavailable",
     beforeEnter: (to, from, next) => {
-      if (to.name == "Unavailable") {
-        next("/");
-      } else {
-        next();
-      }
+      next("/");
     },
   },
 ];
