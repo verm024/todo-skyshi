@@ -1,10 +1,11 @@
 <template>
-  <div
-    class="main-card card d-flex justify-content-between flex-column"
-    data-cy="activity-item"
-    @click="onTitleClick"
-  >
-    <div class="card-title" role="button" @click="onTitleClick">
+  <div class="main-card card d-flex justify-content-between flex-column">
+    <div
+      class="card-title"
+      role="button"
+      data-cy="activity-item"
+      @click="onTitleClick"
+    >
       <base-text _as="h6" :font-weight="700" data-cy="activity-item-title">{{
         title
       }}</base-text>
