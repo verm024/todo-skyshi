@@ -93,10 +93,9 @@ export default {
         );
         await fetchActivities();
         isAlertDeleteOpen.value = true;
-        const alertTimeOut = setTimeout(() => {
+        setTimeout(() => {
           isAlertDeleteOpen.value = false;
         }, 2000);
-        clearTimeout(alertTimeOut);
       } catch (error) {
         console.error(error);
       } finally {
