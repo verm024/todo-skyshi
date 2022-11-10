@@ -29,20 +29,19 @@ const routes = [
   {
     path: "/:pathMatch(.*)*",
     name: "Unavailable",
+    beforeEnter: (to, from, next) => {
+      if (to.name == "Unavailable") {
+        next("/");
+      } else {
+        next();
+      }
+    },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.name == "Unavailable") {
-    next("/");
-  } else {
-    next();
-  }
 });
 
 export default router;
