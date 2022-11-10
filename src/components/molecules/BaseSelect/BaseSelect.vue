@@ -1,6 +1,6 @@
 <template>
   <div class="main-select">
-    <label>
+    <label v-if="label">
       <base-text _as="caption" :font-weight="600">{{
         label.toUpperCase()
       }}</base-text>
@@ -101,7 +101,7 @@ export default {
     },
     label: {
       type: String,
-      required: true,
+      default: null,
     },
     handleChangeSelect: {
       type: Function,
