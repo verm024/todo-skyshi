@@ -4,7 +4,6 @@
     ref="modalAddEditTodo"
     class="modal fade"
     tabindex="-1"
-    data-bs-backdrop="static"
     data-cy="modal-add"
   >
     <div class="modal-dialog modal-dialog-centered">
@@ -71,7 +70,7 @@ import {
   convertPriorityToText,
 } from "@/utils/helperFunctions";
 
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import { Modal } from "bootstrap";
 
 export default {
@@ -109,6 +108,7 @@ export default {
     let modal;
     onMounted(() => {
       modal = new Modal(modalAddEditTodo.value);
+      modalAddEditTodo.value.addEventListener("hidden.bs.modal", handleClose);
     });
     watch(
       () => props.isOpen,
@@ -120,6 +120,9 @@ export default {
         }
       }
     );
+    onBeforeUnmount(() => {
+      modalAddEditTodo.value.addEventListener("hidden.bs.modal", handleClose);
+    });
 
     const name = ref("");
     const options = [

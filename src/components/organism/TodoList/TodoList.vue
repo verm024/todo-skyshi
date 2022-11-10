@@ -14,7 +14,7 @@
       v-if="todos.length === 0"
       class="d-flex justify-content-center pt-5"
       role="button"
-      data-cy="todo=empty-state"
+      data-cy="todo-empty-state"
       @click="onAdd"
     >
       <img

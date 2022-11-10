@@ -4,7 +4,6 @@
     ref="modalDeleteActivity"
     class="modal fade"
     tabindex="-1"
-    data-bs-backdrop="static"
     data-cy="modal-delete"
   >
     <div class="modal-dialog modal-dialog-centered">
@@ -49,7 +48,7 @@
 import { BaseText } from "@/components/atom";
 import { BaseButton } from "@/components/molecules";
 
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import { Modal } from "bootstrap";
 
 export default {
@@ -81,6 +80,10 @@ export default {
     let modal;
     onMounted(() => {
       modal = new Modal(modalDeleteActivity.value);
+      modalDeleteActivity.value.addEventListener(
+        "hidden.bs.modal",
+        props.onClose
+      );
     });
     watch(
       () => props.isOpen,
@@ -92,6 +95,12 @@ export default {
         }
       }
     );
+    onBeforeUnmount(() => {
+      modalDeleteActivity.value.addEventListener(
+        "hidden.bs.modal",
+        props.onClose
+      );
+    });
     return {
       modalDeleteActivity,
     };
