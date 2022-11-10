@@ -4,7 +4,7 @@
     ref="modalAddEditTodo"
     class="modal fade"
     tabindex="-1"
-    data-cy="modal-add"
+    :data-cy="`modal-${mode}`"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -13,13 +13,13 @@
             class="modal-title"
             _as="h6"
             :font-weight="600"
-            data-cy="modal-add-title"
+            :data-cy="`modal-${mode}-title`"
             >{{ title }}</base-text
           >
           <button
             type="button"
             class="btn-close"
-            data-cy="modal-add-close-button"
+            :data-cy="`modal-${mode}-close-button`"
             @click="handleClose"
           ></button>
         </div>
@@ -29,8 +29,8 @@
               v-model="name"
               input-placeholder="Tambahkan nama list item"
               label="NAMA LIST ITEM"
-              input-cy="modal-add-name-input"
-              label-cy="modal-add-name-title"
+              :input-cy="`modal-${mode}-name-input`"
+              :label-cy="`modal-${mode}-name-title`"
             />
           </div>
           <div>
@@ -39,9 +39,9 @@
               :options="options"
               :selected-option="priority"
               label="PRIORITY"
-              parent-cy="modal-add-priority-dropdown"
-              selected-cy="modal-add-priority-item"
-              label-cy="modal-add-priority-title"
+              :parent-cy="`modal-${mode}-priority-dropdown`"
+              :selected-cy="`modal-${mode}-priority-item`"
+              :label-cy="`modal-${mode}-priority-title`"
               :handle-change-select="
                 (text, value) => handleChangePriority(text, value)
               "
@@ -52,7 +52,7 @@
           <base-button
             variant="primary"
             :disabled="name === ''"
-            data-cy="modal-add-save-button"
+            :data-cy="`modal-${mode}-save-button`"
             @click="handleConfirm"
             >Simpan</base-button
           >
@@ -102,6 +102,11 @@ export default {
       type: Object,
       default: () => null,
     },
+    mode: {
+      type: String,
+      default: "add",
+      validator: (val) => ["add", "edit"].includes(val),
+    },
   },
   setup(props) {
     const modalAddEditTodo = ref(null);
@@ -130,31 +135,31 @@ export default {
         text: convertPriorityToText("very-high"),
         value: "very-high",
         color: convertPriorityToColor("very-high"),
-        dataCy: "modal-add-priority-very-high",
+        dataCy: `modal-${props.mode}-priority-very-high`,
       },
       {
         text: convertPriorityToText("high"),
         value: "high",
         color: convertPriorityToColor("high"),
-        dataCy: "modal-add-priority-high",
+        dataCy: `modal-${props.mode}-priority-high`,
       },
       {
         text: convertPriorityToText("normal"),
         value: "normal",
         color: convertPriorityToColor("normal"),
-        dataCy: "modal-add-priority-medium",
+        dataCy: `modal-${props.mode}-priority-medium`,
       },
       {
         text: convertPriorityToText("low"),
         value: "low",
         color: convertPriorityToColor("low"),
-        dataCy: "modal-add-priority-low",
+        dataCy: `modal-${props.mode}-priority-low`,
       },
       {
         text: convertPriorityToText("very-low"),
         value: "very-low",
         color: convertPriorityToColor("very-low"),
-        dataCy: "modal-add-priority-very-low",
+        dataCy: `modal-${props.mode}-priority-very-low`,
       },
     ];
     const priority = ref({
