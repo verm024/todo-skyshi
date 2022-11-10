@@ -242,6 +242,7 @@ export default {
           console.error(error);
         }
       } else {
+        document.getElementById("activity-title").focus();
         isEditingActivityName.value = true;
         await nextTick();
         document.getElementById("activity-title").focus();
