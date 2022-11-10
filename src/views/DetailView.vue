@@ -6,14 +6,22 @@
           <base-text _as="h5"><i class="bi bi-chevron-left"></i></base-text
         ></router-link>
       </div>
-      <input
-        v-model="activityTitle"
-        id="activity-title"
-        class="activity-title-custom-input"
-        data-cy="todo-title"
-        @focus="handleClickEditActivityName"
-        @blur="handleClickEditActivityName"
-      />
+      <div data-cy="todo-title">
+        <base-text
+          v-if="!isEditingActivityName"
+          _as="h4"
+          :font-weight="700"
+          @click="handleClickEditActivityName"
+          >{{ activityTitle }}</base-text
+        >
+        <input
+          v-else
+          id="activity-title"
+          v-model="activityTitle"
+          class="activity-title-custom-input"
+          @blur="handleClickEditActivityName"
+        />
+      </div>
       <div
         role="button"
         class="ms-4"
@@ -106,7 +114,7 @@ import { BaseText } from "@/components/atom";
 import { BaseButton, BaseSelect, BaseAlert } from "@/components/molecules";
 import api from "@/utils/api";
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { useRoute } from "vue-router";
 
 export default {
@@ -236,6 +244,8 @@ export default {
       } else {
         document.getElementById("activity-title").focus();
         isEditingActivityName.value = true;
+        await nextTick();
+        document.getElementById("activity-title").focus();
       }
     };
 
