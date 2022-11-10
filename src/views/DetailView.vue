@@ -6,31 +6,25 @@
           <base-text _as="h5"><i class="bi bi-chevron-left"></i></base-text
         ></router-link>
       </div>
-      <base-text
-        v-if="!isEditingActivityName"
-        :class="!isEditingActivityName ? 'd-block' : 'd-none'"
-        _as="h4"
-        :font-weight="700"
+      <input
+        v-model="activityTitle"
+        id="activity-title"
+        class="activity-title-custom-input"
         data-cy="todo-title"
-        @click="handleClickEditActivityName"
-        >{{ activityTitle }}</base-text
-      >
-      <div id="editActivityName">
-        <input
-          v-model="activityTitle"
-          :class="[
-            isEditingActivityName ? 'd-block' : 'd-none',
-            'activity-title-custom-input',
-          ]"
-          data-cy="todo-title"
-          @blur="handleClickEditActivityName"
-        />
-      </div>
+        @focus="handleClickEditActivityName"
+        @blur="handleClickEditActivityName"
+      />
       <div
         role="button"
         class="ms-4"
         data-cy="todo-title-edit-button"
-        @click="handleClickEditActivityName"
+        @click="
+          () => {
+            if (!isEditingActivityName) {
+              handleClickEditActivityName();
+            }
+          }
+        "
       >
         <base-text _as="h6" color="#A4A4A4"
           ><i class="bi bi-pencil"></i
@@ -240,8 +234,8 @@ export default {
           console.error(error);
         }
       } else {
+        document.getElementById("activity-title").focus();
         isEditingActivityName.value = true;
-        document.getElementById("editActivityName").children[0].focus();
       }
     };
 
@@ -385,9 +379,9 @@ export default {
   line-height: 3.375rem !important;
   font-weight: 700;
   border: none;
-  border-bottom: 1px solid #d8d8d8;
 }
 .activity-title-custom-input:focus {
   outline: none;
+  border-bottom: 1px solid #d8d8d8;
 }
 </style>
