@@ -1,7 +1,11 @@
 <template>
-  <nav class="main-navbar navbar fixed-top">
+  <nav class="main-navbar navbar fixed-top" data-cy="header-background">
     <div class="container">
-      <base-text _as="h5" :font-weight="700" color="white"
+      <base-text
+        _as="h5"
+        :font-weight="700"
+        color="white"
+        data-cy="header-title"
         >TO DO LIST APP</base-text
       >
     </div>

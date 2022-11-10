@@ -1,13 +1,26 @@
 <template>
-  <div class="main-card card d-flex justify-content-between flex-column">
+  <div
+    class="main-card card d-flex justify-content-between flex-column"
+    data-cy="activity-item"
+  >
     <div class="card-title" role="button" @click="onTitleClick">
-      <base-text _as="h6" :font-weight="700">{{ title }}</base-text>
+      <base-text _as="h6" :font-weight="700" data-cy="activity-item-title">{{
+        title
+      }}</base-text>
     </div>
     <div class="card-text d-flex justify-content-between align-items-center">
-      <base-text _as="b2" color="#888888" :font-weight="500">{{
-        formattedDate
-      }}</base-text>
-      <div role="button" @click="onDelete">
+      <base-text
+        _as="b2"
+        color="#888888"
+        :font-weight="500"
+        data-cy="activity-item-date"
+        >{{ formattedDate }}</base-text
+      >
+      <div
+        role="button"
+        @click="onDelete"
+        data-cy="activity-item-delete-button"
+      >
         <base-text _as="h5" color="#888888"
           ><i class="bi bi-trash3"></i
         ></base-text>

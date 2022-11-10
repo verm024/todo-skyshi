@@ -1,18 +1,31 @@
 <template>
   <div class="d-flex justify-content-between align-items-center mb-4">
     <div class="d-flex align-items-center">
-      <div role="button" class="me-4">
+      <div role="button" class="me-4" data-cy="todo-back-button">
         <router-link to="/">
           <base-text _as="h5"><i class="bi bi-chevron-left"></i></base-text
         ></router-link>
       </div>
-      <base-text v-if="!isEditingActivityName" _as="h4" :font-weight="700">{{
-        activityTitle
-      }}</base-text>
+      <base-text
+        v-if="!isEditingActivityName"
+        _as="h4"
+        :font-weight="700"
+        data-cy="todo-title"
+        >{{ activityTitle }}</base-text
+      >
       <div v-else class="activity-title-custom-input">
-        <input v-model="activityTitle" @blur="handleClickEditActivityName" />
+        <input
+          v-model="activityTitle"
+          data-cy="todo-title"
+          @blur="handleClickEditActivityName"
+        />
       </div>
-      <div role="button" class="ms-4" @click="handleClickEditActivityName">
+      <div
+        role="button"
+        class="ms-4"
+        data-cy="todo-title-edit-button"
+        @click="handleClickEditActivityName"
+      >
         <base-text _as="h6" color="#A4A4A4"
           ><i class="bi bi-pencil"></i
         ></base-text>
@@ -30,9 +43,14 @@
           :handle-change-select="
             (text, value) => handleChangeSelectedFilterOrSort(text, value)
           "
+          menu-cy="sort-parent"
+          data-cy="todo-sort"
         />
       </div>
-      <base-button icon="bi bi-plus-lg" @click="handleOpenModalAdd"
+      <base-button
+        icon="bi bi-plus-lg"
+        data-cy="todo-add-button"
+        @click="handleOpenModalAdd"
         >Tambah</base-button
       >
     </div>
@@ -213,6 +231,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-sort-down",
         },
+        dataCy: "sort-latest",
       },
       {
         text: "Terlama",
@@ -221,6 +240,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-sort-up-alt",
         },
+        dataCy: "sort-oldest",
       },
       {
         text: "A-Z",
@@ -229,6 +249,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-sort-alpha-down",
         },
+        dataCy: "sort-az",
       },
       {
         text: "Z-A",
@@ -237,6 +258,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-sort-alpha-down-alt",
         },
+        dataCy: "sort-za",
       },
       {
         text: "Belum Selesai",
@@ -245,6 +267,7 @@ export default {
           color: "#16ABF8",
           icon: "bi bi-arrow-down-up",
         },
+        dataCy: "sort-unfinished",
       },
     ];
     const filteredOrSortedTodos = ref([]);

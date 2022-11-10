@@ -1,7 +1,14 @@
 <template>
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <base-text _as="h4" :font-weight="700">Activity</base-text>
-    <base-button icon="bi bi-plus-lg" @click="handleAdd()">Tambah</base-button>
+    <base-text _as="h4" :font-weight="700" data-cy="activity-title"
+      >Activity</base-text
+    >
+    <base-button
+      icon="bi bi-plus-lg"
+      data-cy="activity-add-button"
+      @click="handleAdd()"
+      >Tambah</base-button
+    >
   </div>
   <activity-list
     :activities="activities"

@@ -1,26 +1,35 @@
 <template>
   <div
     class="main-todo-item w-100 d-flex align-items-center justify-content-between"
+    data-cy="todo-item"
   >
     <div class="d-flex align-items-center">
-      <base-checkbox :checked="checked" :on-check-click="onCheckClick" />
+      <base-checkbox
+        :checked="checked"
+        :on-check-click="onCheckClick"
+        data-cy="todo-item-checkbox"
+      />
       <div class="ms-3">
-        <colored-circle :color="priorityColor" />
+        <colored-circle
+          :color="priorityColor"
+          data-cy="todo-item-priority-indicator"
+        />
       </div>
       <base-text
         class="ms-3 me-3"
         _as="h6"
         :font-weight="500"
         :style="{ textDecoration: checked ? 'line-through' : 'none' }"
+        data-cy="todo-item-title"
         >{{ title }}</base-text
       >
-      <div role="button" @click="onEdit">
+      <div role="button" data-cy="todo-item-edit-button" @click="onEdit">
         <base-text _as="b1" color="#C4C4C4"
           ><i class="bi bi-pencil"></i
         ></base-text>
       </div>
     </div>
-    <div role="button" @click="onDelete">
+    <div role="button" @click="onDelete" data-cy="todo-item-delete-button">
       <base-text _as="h6" color="#888888"
         ><i class="bi bi-trash3"></i
       ></base-text>

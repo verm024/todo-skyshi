@@ -1,12 +1,13 @@
 <template>
   <div class="main-labeled-input">
-    <label>
+    <label :data-cy="labelCy">
       <base-text _as="caption" :font-weight="600">{{
         label.toUpperCase()
       }}</base-text>
     </label>
     <base-input
       v-model="localModelValue"
+      :data-cy="inputCy"
       :input-placeholder="inputPlaceholder"
     />
   </div>
@@ -35,6 +36,14 @@ export default {
     label: {
       type: String,
       required: true,
+    },
+    inputCy: {
+      type: String,
+      default: null,
+    },
+    labelCy: {
+      type: String,
+      default: null,
     },
   },
   setup(props, { emit }) {

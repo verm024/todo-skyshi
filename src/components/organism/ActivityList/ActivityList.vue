@@ -16,6 +16,7 @@
       v-if="activities.length === 0"
       class="d-flex justify-content-center pt-5"
       role="button"
+      data-cy="activity-empty-state"
       @click="onAdd"
     >
       <img

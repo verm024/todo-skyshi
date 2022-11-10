@@ -5,14 +5,24 @@
     class="modal fade"
     tabindex="-1"
     data-bs-backdrop="static"
+    data-cy="modal-add"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <base-text class="modal-title" _as="h6" :font-weight="600">{{
-            title
-          }}</base-text>
-          <button type="button" class="btn-close" @click="handleClose"></button>
+          <base-text
+            class="modal-title"
+            _as="h6"
+            :font-weight="600"
+            data-cy="modal-add-title"
+            >{{ title }}</base-text
+          >
+          <button
+            type="button"
+            class="btn-close"
+            data-cy="modal-add-close-button"
+            @click="handleClose"
+          ></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
@@ -20,6 +30,8 @@
               v-model="name"
               input-placeholder="Tambahkan nama list item"
               label="NAMA LIST ITEM"
+              input-cy="modal-add-name-input"
+              label-cy="modal-add-name-title"
             />
           </div>
           <div>
@@ -28,6 +40,9 @@
               :options="options"
               :selected-option="priority"
               label="PRIORITY"
+              parent-cy="modal-add-priority-dropdown"
+              selected-cy="modal-add-priority-item"
+              label-cy="modal-add-priority-title"
               :handle-change-select="
                 (text, value) => handleChangePriority(text, value)
               "
@@ -38,6 +53,7 @@
           <base-button
             variant="primary"
             :disabled="name === ''"
+            data-cy="modal-add-save-button"
             @click="handleConfirm"
             >Simpan</base-button
           >
@@ -111,26 +127,31 @@ export default {
         text: convertPriorityToText("very-high"),
         value: "very-high",
         color: convertPriorityToColor("very-high"),
+        dataCy: "modal-add-priority-very-high",
       },
       {
         text: convertPriorityToText("high"),
         value: "high",
         color: convertPriorityToColor("high"),
+        dataCy: "modal-add-priority-high",
       },
       {
         text: convertPriorityToText("normal"),
         value: "normal",
         color: convertPriorityToColor("normal"),
+        dataCy: "modal-add-priority-medium",
       },
       {
         text: convertPriorityToText("low"),
         value: "low",
         color: convertPriorityToColor("low"),
+        dataCy: "modal-add-priority-low",
       },
       {
         text: convertPriorityToText("very-low"),
         value: "very-low",
         color: convertPriorityToColor("very-low"),
+        dataCy: "modal-add-priority-very-low",
       },
     ];
     const priority = ref({
