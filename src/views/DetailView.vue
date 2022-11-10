@@ -6,8 +6,13 @@
           <base-text _as="h5"><i class="bi bi-chevron-left"></i></base-text
         ></router-link>
       </div>
-      <base-text _as="h4" :font-weight="700">{{ activityTitle }}</base-text>
-      <div role="button" class="ms-4">
+      <base-text v-if="!isEditingActivityName" _as="h4" :font-weight="700">{{
+        activityTitle
+      }}</base-text>
+      <div v-else class="activity-title-custom-input">
+        <input v-model="activityTitle" @blur="handleClickEditActivityName" />
+      </div>
+      <div role="button" class="ms-4" @click="handleClickEditActivityName">
         <base-text _as="h6" color="#A4A4A4"
           ><i class="bi bi-pencil"></i
         ></base-text>
@@ -165,6 +170,23 @@ export default {
       }
     };
 
+    const isEditingActivityName = ref(false);
+    const handleClickEditActivityName = async () => {
+      if (isEditingActivityName.value) {
+        try {
+          await api().patch(`/activity-groups/${route.params.id}`, {
+            title: activityTitle.value,
+          });
+          await fetchTodos();
+          isEditingActivityName.value = false;
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        isEditingActivityName.value = true;
+      }
+    };
+
     return {
       todos,
       activityTitle,
@@ -183,9 +205,23 @@ export default {
       handleEdit,
       modalEditData,
       handleChangeCheckbox,
+      isEditingActivityName,
+      handleClickEditActivityName,
     };
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.activity-title-custom-input input {
+  /* H4 font size */
+  font-size: 2.25rem !important;
+  line-height: 3.375rem !important;
+  font-weight: 700;
+  border: none;
+  border-bottom: 1px solid #d8d8d8;
+}
+.activity-title-custom-input input:focus {
+  outline: none;
+}
+</style>
