@@ -53,7 +53,7 @@ export const convertPriorityToText = (priority) => {
       priorityText = "High";
       break;
     case "normal":
-      priorityText = "Normal";
+      priorityText = "Medium";
       break;
     case "low":
       priorityText = "Low";

@@ -1,12 +1,25 @@
 <template>
-  <div ref="alert" class="modal fade" tabindex="-1" data-bs-backdrop="static">
+  <div
+    ref="alert"
+    class="modal fade"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    data-cy="modal-information"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body d-flex align-items-center">
-          <base-text :color="iconColor" _as="btn">
+          <base-text
+            :color="iconColor"
+            _as="btn"
+            data-cy="modal-information-icon"
+          >
             <i v-if="icon" :class="[icon, 'me-3']"></i>
           </base-text>
-          <base-text _as="b2" :font-weight="500"
+          <base-text
+            _as="b2"
+            :font-weight="500"
+            data-cy="modal-information-title"
             >Activity berhasil dihapus</base-text
           >
         </div>

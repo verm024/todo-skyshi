@@ -5,13 +5,14 @@
         label.toUpperCase()
       }}</base-text>
     </label>
-    <div :class="['dropdown', `dropdown-${selectorType}`]">
+    <div :class="['dropdown', `dropdown-${selectorType}`]" :data-cy="parentCy">
       <button
         :id="`select-${name}`"
         :class="[`${selectorType}-selector`]"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
+        :data-cy="`${name}-button`"
       >
         <div
           v-if="!asDropdown"
@@ -21,7 +22,7 @@
             <div v-if="selectedOption.color" class="me-3">
               <colored-circle :size="14" :color="selectedOption.color" />
             </div>
-            <base-text _as="b1" color="#4A4A4A">{{
+            <base-text _as="b1" color="#4A4A4A" :data-cy="selectedCy">{{
               selectedOption.text
             }}</base-text>
           </div>
@@ -44,12 +45,17 @@
           </div>
         </div>
       </button>
-      <div class="dropdown-menu" :aria-labelledby="`#select-${name}`">
+      <div
+        class="dropdown-menu"
+        :aria-labelledby="`#select-${name}`"
+        :data-cy="menuCy"
+      >
         <div
           v-for="(option, index) in options"
           :key="index"
           class="select-option"
           role="button"
+          :data-cy="option.dataCy"
           @click="() => handleChangeSelect(option.text, option.value)"
         >
           <div class="d-flex align-items-center justify-content-between">
@@ -119,6 +125,22 @@ export default {
     selectorContent: {
       type: String,
       default: "",
+    },
+    parentCy: {
+      type: String,
+      default: null,
+    },
+    menuCy: {
+      type: String,
+      default: null,
+    },
+    labelCy: {
+      type: String,
+      default: null,
+    },
+    selectedCy: {
+      type: String,
+      default: null,
     },
   },
 };
